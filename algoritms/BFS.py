@@ -1,10 +1,12 @@
 from collections import deque
 from agents.pared import pared 
+from agents.grass import grass
 
 def BFS(grid, start, goal):
     queue = deque([start])
     came_from = {start: None}
     visited = set()
+    counter = 0
 
     while queue:
         current = queue.popleft()
@@ -13,13 +15,19 @@ def BFS(grid, start, goal):
 
         visited.add(current)
 
+        agents_in_cell = grid.get_cell_list_contents([current])
+        for agent in agents_in_cell:
+            if isinstance(agent, grass):
+                agent.label = counter
+                counter += 1
+
         possible_steps = grid.get_neighborhood(current, moore=False, include_center=False)
         for next_pos in possible_steps:
             if next_pos not in visited and next_pos not in queue and is_accessible(grid, next_pos):
                 queue.append(next_pos)
                 came_from[next_pos] = current
 
-    return None 
+    return None
 
 def is_accessible(grid, position):
     # Verifica si la celda está vacía o no contiene una pared

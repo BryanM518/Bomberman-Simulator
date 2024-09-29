@@ -1,7 +1,7 @@
 from mesa import Agent
 from agents.grass import grass
-from algoritms.DFS import DFS
-from algoritms.BFS import BFS
+from algoritms import DFS
+from algoritms import BFS
 
 class bomberman(Agent):
     def __init__(self, unique_id, model, search_type):
@@ -18,9 +18,9 @@ class bomberman(Agent):
         # Sólo calcular el camino si es el primer movimiento
         if self.first_move:
             if self.search_type == "BFS":
-                self.path = BFS(self.model.grid, self.pos, self.model.goal)
+                self.path = BFS.find_path(self.model.grid, self.pos, self.model.goal)
             elif self.search_type == "DFS":
-                self.path = DFS(self.model.grid, self.pos, self.model.goal)
+                self.path = DFS.find_path(self.model.grid, self.pos, self.model.goal)
             self.first_move = False
 
         if self.path:
@@ -33,6 +33,6 @@ class bomberman(Agent):
             for agent in cell_agents:
                 if isinstance(agent, grass):  # Asumiendo que el agente 'grass' se llama 'Grass'
                     agent.visited = 1  # Marca el 'grass' como visitado
-
         else:
+            self.model.running = False
             print("No hay camino disponible o ya se alcanzó la meta.")

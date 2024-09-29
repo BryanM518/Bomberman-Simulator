@@ -1,9 +1,9 @@
 # pathfinding.py
-from agents.pared import pared
+from agents.metal import metal
 from agents.grass import grass
 
 
-def DFS(grid, start, goal):
+def find_path(grid, start, goal):
     stack = [start]
     came_from = {start: None}
     visited = set()
@@ -36,7 +36,7 @@ def DFS(grid, start, goal):
 def is_accessible(grid, position):
     # Verifica si la celda está vacía o no contiene una pared
     agent = grid.get_cell_list_contents([position])
-    return all(not isinstance(a, pared) for a in agent)
+    return all(not isinstance(a, metal) for a in agent)
 
 def reconstruct_path(came_from, current):
     path = []

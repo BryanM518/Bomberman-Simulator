@@ -1,6 +1,6 @@
 from agents.bomberman import bomberman
 from agents.salida import salida
-from agents.pared import pared
+from agents.metal import metal
 from agents.grass import grass
 
 class load:
@@ -10,7 +10,7 @@ class load:
                 line = line.strip().split(",")  
                 for x, cell in enumerate(line):
                     if cell == "M":
-                        wall_agent = pared(self.schedule.get_agent_count(), self)
+                        wall_agent = metal(self.schedule.get_agent_count(), self)
                         self.schedule.add(wall_agent)
                         self.grid.place_agent(wall_agent, (x, y))
                     elif cell != "M":
@@ -32,5 +32,6 @@ class load:
     def get_map_dimensions(map_file):
         with open(map_file, "r") as f:
             lines = f.readlines()
-            height = len(lines) 
-        return height
+            height = len(lines)  # Número de líneas es la altura
+            width = len(lines[0].strip().split(",")) if height > 0 else 0  # Longitud de la primera línea es el ancho
+        return width, height

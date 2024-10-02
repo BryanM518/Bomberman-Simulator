@@ -1,4 +1,3 @@
-# pathfinding.py
 from agents.metal import metal
 from agents.grass import grass
 

@@ -37,8 +37,8 @@ simulation_params = {
     "algorithm": Choice(
         name='Método de búsqueda',
         description="Seleccione el método de búsqueda para llegar a la meta",
-        choices=["BFS", "DFS"],
-        value="BFS"
+        choices=["BFS", "DFS", "UC"],
+        value="UC"
     )
 }
 

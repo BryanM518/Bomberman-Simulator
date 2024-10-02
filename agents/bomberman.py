@@ -2,6 +2,7 @@ from mesa import Agent
 from agents.grass import grass
 from algoritms import DFS
 from algoritms import BFS
+from algoritms import UC
 
 class bomberman(Agent):
     def __init__(self, unique_id, model, search_type):
@@ -21,6 +22,8 @@ class bomberman(Agent):
                 self.path = BFS.find_path(self.model.grid, self.pos, self.model.goal)
             elif self.search_type == "DFS":
                 self.path = DFS.find_path(self.model.grid, self.pos, self.model.goal)
+            elif self.search_type == "UC":
+                self.path = UC.find_path(self.model.grid, self.pos, self.model.goal)
             self.first_move = False
 
         if self.path:

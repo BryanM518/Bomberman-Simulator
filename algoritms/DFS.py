@@ -36,13 +36,16 @@ def find_path(grid, start, goal, priority):
                 elif i == "Arriba":
                     new_possible_steps.append(possible_steps[2])
 
-            print(f"possible_steps: ", possible_steps)
             for next_pos in reversed(new_possible_steps):
-                if next_pos not in visited and next_pos not in stack and is_accessible(grid, next_pos):
+                if next_pos not in visited and is_accessible(grid, next_pos):
+                    if next_pos in stack:
+                        stack.remove(next_pos)
                     stack.append(next_pos)
                     came_from[next_pos] = current
-            
-            print(stack)
+
+                # elif next_pos not in visited and next_pos not in stack and is_accessible(grid, next_pos):
+                #     stack.append(next_pos)
+                #     came_from[next_pos] = current
 
     return None
 

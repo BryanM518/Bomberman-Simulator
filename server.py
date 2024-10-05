@@ -25,7 +25,7 @@ if not map_file_path:
 
 map_file_name = os.path.basename(map_file_path)
 
-height, width = load.get_map_dimensions(f"maps/{map_file_name}")
+width, height = load.get_map_dimensions(f"maps/{map_file_name}")
 SIZE_OF_CANVAS_IN_PIXELS_X = 800
 SIZE_OF_CANVAS_IN_PIXELS_Y = 800
 

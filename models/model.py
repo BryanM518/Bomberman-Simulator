@@ -5,15 +5,16 @@ from mesa.time import RandomActivation
 from mesa.datacollection import DataCollector
 from mesa.space import MultiGrid
 
-# mapas = {
-#     "Mapa 1 (10x10)": "map1.txt",
-#     "Mapa 2 (13x13)": "map2.txt"
-# }
-
+priorities = { 
+    "← ↓ ↑ →": ["Izquierda", "Abajo", "Arriba", "Derecha"],
+    "→ ↓ ↑ ←": ["Derecha", "Abajo", "Arriba", "Izquierda"],
+    "→ ↑ ← ↓": ["Derecha", "Arriba", "Izquierda", "Abajo"],
+    "↑ ↓ ← →": ["Arriba", "Abajo", "Izquierda", "Derecha"], 
+}
 
 class model(Model):
 
-    def __init__(self, number_of_agents, width, height, map_file, algorithm):
+    def __init__(self, number_of_agents, width, height, map_file, algorithm, priority):
         self.num_agents = number_of_agents
         self.grid = MultiGrid(width, height, True)
         self.schedule = RandomActivation(self)
@@ -21,9 +22,10 @@ class model(Model):
         self.goal = None
         self.map_file = f"maps/{map_file}"
         self.algorithm = algorithm
+        self.priority = priorities[priority]
 
         # Leer el mapa desde el archivo
-        load.load_map(self, self.map_file, algorithm)
+        load.load_map(self, self.map_file, algorithm, self.priority)
 
     def step(self) -> None:
         self.schedule.step()

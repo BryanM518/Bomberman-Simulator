@@ -4,7 +4,7 @@ from agents.metal import metal
 from agents.grass import grass
 
 class load:
-    def load_map(self, map_file, algorithm):
+    def load_map(self, map_file, algorithm, priority):
         with open(map_file, "r") as f:
             for y, line in enumerate(f.readlines()):
                 line = line.strip().split(",")  
@@ -19,7 +19,7 @@ class load:
                         self.grid.place_agent(grass_agent, (x, y))
                         
                     if cell == "B":
-                        bomberman_agent = bomberman(self.schedule.get_agent_count(), self, algorithm)
+                        bomberman_agent = bomberman(self.schedule.get_agent_count(), self, algorithm, priority)
                         self.schedule.add(bomberman_agent)
                         self.grid.place_agent(bomberman_agent, (x, y))
                         self.newBombermanAgent = bomberman_agent  

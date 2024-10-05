@@ -1,0 +1,8 @@
+M,M,M,M,M,M,M,M
+M,C,C,C,C,C,C,M
+M,C,C,B,C,C,C,M
+M,C,C,C,C,C,C,M
+M,C,C,C,C,C,C,M
+M,C,C,C,C,C,C,M
+M,C,C,C,C,C,R,M
+M,M,M,M,M,M,M,M

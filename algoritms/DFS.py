@@ -2,7 +2,7 @@ from agents.metal import metal
 from agents.grass import grass
 
 
-def find_path(grid, start, goal):
+def find_path(grid, start, goal, priority):
     stack = [start]
     came_from = {start: None}
     visited = set()
@@ -24,11 +24,25 @@ def find_path(grid, start, goal):
                     counter += 1
 
             possible_steps = grid.get_neighborhood(current, moore=False, include_center=False)
+            new_possible_steps = []
+
+            for i in priority:
+                if i == "Derecha":
+                    new_possible_steps.append(possible_steps[3])
+                elif i == "Izquierda":
+                    new_possible_steps.append(possible_steps[0])
+                elif i == "Abajo":
+                    new_possible_steps.append(possible_steps[1])
+                elif i == "Arriba":
+                    new_possible_steps.append(possible_steps[2])
+
             print(f"possible_steps: ", possible_steps)
-            for next_pos in possible_steps:
+            for next_pos in reversed(new_possible_steps):
                 if next_pos not in visited and next_pos not in stack and is_accessible(grid, next_pos):
                     stack.append(next_pos)
                     came_from[next_pos] = current
+            
+            print(stack)
 
     return None
 

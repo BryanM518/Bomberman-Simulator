@@ -3,21 +3,23 @@ from collections import deque
 from agents.metal import metal
 from agents.grass import grass
 
-def find_path(grid, start, goal):
-    # Cola de prioridad donde cada entrada es (costo acumulado, posición)
-    queue = [(0, start)]
+def find_path(grid, start, goal, priority):
+    # Cola de prioridad donde cada entrada es (costo acumulado, contador, posición)
+    queue = [(0, 0, start)]
     came_from = {start: None}
     cost_so_far = {start: 0}
     visited = set()
     counter = 0
+    step_counter = 0  # Este contador controlará el orden de inserción
 
     while queue:
-        current_cost, current = heapq.heappop(queue)
+        current_cost, _, current = heapq.heappop(queue)
 
         if current == goal:
             return reconstruct_path(came_from, current)
 
         visited.add(current)
+        print("Se analiza ", current)
 
         agents_in_cell = grid.get_cell_list_contents([current])
         for agent in agents_in_cell:
@@ -26,18 +28,29 @@ def find_path(grid, start, goal):
                 counter += 1
 
         possible_steps = grid.get_neighborhood(current, moore=False, include_center=False)
-        for next_pos in possible_steps:
-            if (next_pos[1] == current[1]):
-                new_cost = current_cost + 40
-            elif (next_pos[0] == current[0]):
-                new_cost = current_cost + 1
+        new_possible_steps = []
+
+        for i in priority:
+            if i == "Derecha":
+                new_possible_steps.append(possible_steps[3])
+            elif i == "Izquierda":
+                new_possible_steps.append(possible_steps[0])
+            elif i == "Abajo":
+                new_possible_steps.append(possible_steps[1])
+            elif i == "Arriba":
+                new_possible_steps.append(possible_steps[2])
+
+        for next_pos in (new_possible_steps):
+            new_cost = current_cost + 10
             if next_pos not in visited and is_accessible(grid, next_pos):
                 if next_pos not in cost_so_far or new_cost < cost_so_far[next_pos]:
                     cost_so_far[next_pos] = new_cost
-                    heapq.heappush(queue, (new_cost, next_pos))
+                    # Incrementa step_counter para mantener el orden
+                    step_counter += 1
+                    heapq.heappush(queue, (new_cost, step_counter, next_pos))
                     came_from[next_pos] = current
-            
-            print(heapq)
+                
+            print("Pila: ", queue)
 
     return None
 

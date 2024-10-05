@@ -10,6 +10,7 @@ from agents.grass import grass
 from mesa.visualization.modules import CanvasGrid
 from mesa.visualization import Choice
 from utils.load import load
+import mesa
 
 root = tk.Tk()
 root.withdraw()  
@@ -25,8 +26,8 @@ if not map_file_path:
 map_file_name = os.path.basename(map_file_path)
 
 height, width = load.get_map_dimensions(f"maps/{map_file_name}")
-SIZE_OF_CANVAS_IN_PIXELS_X = 500
-SIZE_OF_CANVAS_IN_PIXELS_Y = 500
+SIZE_OF_CANVAS_IN_PIXELS_X = 800
+SIZE_OF_CANVAS_IN_PIXELS_Y = 800
 
 # Simulation parameters
 simulation_params = {
@@ -39,6 +40,12 @@ simulation_params = {
         description="Seleccione el método de búsqueda para llegar a la meta",
         choices=["BFS", "DFS", "UC"],
         value="UC"
+    ),
+    "priority": Choice(
+        name = 'Prioridad de búsqueda',
+        description= "Seleccione el orden de prioridad de busqueda que tendrá el agente",
+        choices= ["← ↓ ↑ →", "→ ↓ ↑ ←", "→ ↑ ← ↓", "↑ ↓ ← →"],
+        value= "← ↓ ↑ →"
     )
 }
 

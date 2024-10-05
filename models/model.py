@@ -9,7 +9,11 @@ priorities = {
     "← ↓ ↑ →": ["Izquierda", "Abajo", "Arriba", "Derecha"],
     "→ ↓ ↑ ←": ["Derecha", "Abajo", "Arriba", "Izquierda"],
     "→ ↑ ← ↓": ["Derecha", "Arriba", "Izquierda", "Abajo"],
-    "↑ ↓ ← →": ["Arriba", "Abajo", "Izquierda", "Derecha"], 
+    "↑ → ← ↓": ["Arriba", "Derecha", "Izquierda", "Abajo"],
+    "↓ ↑ → ←": ["Abajo", "Arriba", "Derecha", "Izquierda"],
+    "↑ ← ↓ →": ["Arriba", "Izquierda", "Abajo", "Derecha"],
+    "↓ ← → ↑": ["Abajo", "Izquierda", "Derecha", "Arriba"],
+    "← → ↓ ↑": ["Izquierda", "Derecha", "Abajo", "Arriba"], 
 }
 
 class model(Model):

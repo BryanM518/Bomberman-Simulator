@@ -7,5 +7,5 @@ M,C,M,C,M,M,M,M,M,M,M
 M,C,M,C,M,C,C,C,M,C,M
 M,M,M,C,C,C,M,C,M,C,M
 M,C,M,C,M,C,C,C,M,M,M
-M,C,C,C,M,C,M,C,M,R,M
+M,C,C,C,M,C,M,C,M,C_g,M
 M,M,M,M,M,M,M,M,M,M,M

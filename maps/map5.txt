@@ -4,5 +4,5 @@ M,C,C,B,C,C,C,M
 M,C,C,C,C,C,C,M
 M,C,C,C,C,C,C,M
 M,C,C,C,C,C,C,M
-M,C,C,C,C,C,R,M
+M,C,C,C,C,C,C_g,M
 M,M,M,M,M,M,M,M

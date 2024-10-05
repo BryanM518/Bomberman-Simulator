@@ -6,7 +6,10 @@ from agents.grass import grass
 class load:
     def load_map(self, map_file, algorithm, priority):
         with open(map_file, "r") as f:
-            for y, line in enumerate(f.readlines()):
+            lines = f.readlines()
+            lines = lines[::-1]  # Invertir las líneas para darle vuelta al mapa verticalmente
+            
+            for y, line in enumerate(lines):
                 line = line.strip().split(",")  
                 for x, cell in enumerate(line):
                     if cell == "M":
@@ -23,7 +26,7 @@ class load:
                         self.schedule.add(bomberman_agent)
                         self.grid.place_agent(bomberman_agent, (x, y))
                         self.newBombermanAgent = bomberman_agent  
-                    elif cell == "R":
+                    elif cell == "C_g":
                         goal_agent = salida(self.schedule.get_agent_count(), self)
                         self.schedule.add(goal_agent)
                         self.grid.place_agent(goal_agent, (x, y))

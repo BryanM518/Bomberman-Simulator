@@ -8,6 +8,6 @@ M,C,C,C,C,C,C,C,M,C,C,C,M
 M,M,M,C,M,C,M,M,M,C,M,M,M
 M,C,M,C,M,C,C,C,C,C,C,C,M
 M,C,C,C,M,C,M,C,M,M,M,M,M
-M,C,M,C,M,C,M,C,C,C,M,R,M
+M,C,M,C,M,C,M,C,C,C,M,C_g,M
 M,C,C,C,C,C,M,C,M,C,C,C,M
 M,M,M,M,M,M,M,M,M,M,M,M,M

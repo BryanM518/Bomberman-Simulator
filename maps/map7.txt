@@ -1,0 +1,6 @@
+C,C,C,C,C,C,C,C,C,C,C
+C,C,C,C,C,C,C,C,C,C,C
+C,C,C,C,C,C,C,C,C,C,C
+C,C,C,C,C,C,C,C,C,C,C
+C,C,C,C,C,C,C,C,C,C,C
+B,C,C,C,C,C,C,C,C,C_g,C

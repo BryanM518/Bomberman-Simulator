@@ -16,7 +16,7 @@ class UC(PathFinder):
             self.label_grass(current)
 
             possible_steps = self.grid.get_neighborhood(current, moore=False, include_center=False)
-            ordered_steps = self.get_ordered_steps(possible_steps)
+            ordered_steps = self.get_ordered_steps(possible_steps, current)
 
             for next_pos in ordered_steps:
                 new_cost = current_cost + 10

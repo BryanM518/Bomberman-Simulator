@@ -35,15 +35,19 @@ class PathFinder(ABC):
                 agent.label = self.counter
                 self.counter += 1
 
-    def get_ordered_steps(self, possible_steps):
+    def get_ordered_steps(self, possible_steps, current):
         new_possible_steps = []
         for i in self.priority:
             if i == "Derecha":
-                new_possible_steps.append(possible_steps[3])
+                if current[0] < possible_steps[3][0]:
+                    new_possible_steps.append(possible_steps[3])
             elif i == "Izquierda":
-                new_possible_steps.append(possible_steps[0])
+                if current[0] > possible_steps[0][0]:
+                    new_possible_steps.append(possible_steps[0])
             elif i == "Abajo":
-                new_possible_steps.append(possible_steps[1])
+                if current[1] > possible_steps[1][1]:
+                    new_possible_steps.append(possible_steps[1])
             elif i == "Arriba":
-                new_possible_steps.append(possible_steps[2])
+                if current[1] < possible_steps[2][1]:
+                    new_possible_steps.append(possible_steps[2])
         return new_possible_steps

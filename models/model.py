@@ -1,5 +1,6 @@
 import mesa
 from mesa import Model
+from agents.enemy import enemy
 from utils.load import load
 from mesa.time import RandomActivation
 from mesa.datacollection import DataCollector
@@ -33,6 +34,13 @@ class model(Model):
 
     def step(self) -> None:
         self.schedule.step()
+
+        agents_in_cell = self.grid.get_cell_list_contents(self.newBombermanAgent.pos)
+        
+        for a in agents_in_cell:
+            if isinstance(a, enemy):
+                print("Bomberman ha sido derrotado")
+                self.running = False
         
         # Verificar si Bomberman ha llegado a la salida
         if self.newBombermanAgent.pos == self.goal:

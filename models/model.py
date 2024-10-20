@@ -13,7 +13,8 @@ priorities = {
     "↓ ↑ → ←": ["Abajo", "Arriba", "Derecha", "Izquierda"],
     "↑ ← ↓ →": ["Arriba", "Izquierda", "Abajo", "Derecha"],
     "↓ ← → ↑": ["Abajo", "Izquierda", "Derecha", "Arriba"],
-    "← → ↓ ↑": ["Izquierda", "Derecha", "Abajo", "Arriba"], 
+    "← → ↓ ↑": ["Izquierda", "Derecha", "Abajo", "Arriba"],
+    "← ↑ → ↓": ["Izquierda", "Arriba", "Derecha", "Abajo"] 
 }
 
 class model(Model):

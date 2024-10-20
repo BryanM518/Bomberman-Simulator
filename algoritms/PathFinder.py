@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from agents.metal import metal
 from agents.grass import grass
+from agents.rock import rock
 
 class PathFinder(ABC):
     def __init__(self, grid, start, goal, priority):
@@ -18,10 +19,11 @@ class PathFinder(ABC):
 
     def is_accessible(self, position):
         agents_in_cell = self.grid.get_cell_list_contents([position])
-        return all(not isinstance(a, metal) for a in agents_in_cell)
+        return all(not isinstance(a, metal) and (not isinstance(a, rock)) for a in agents_in_cell)
 
     def reconstruct_path(self, current):
         path = []
+        print(self.came_from)
         while current is not None:
             path.append(current)
             current = self.came_from[current]

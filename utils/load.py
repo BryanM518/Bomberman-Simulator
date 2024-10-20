@@ -2,6 +2,8 @@ from agents.bomberman import bomberman
 from agents.salida import salida
 from agents.metal import metal
 from agents.grass import grass
+from agents.rock import rock
+from agents.enemy import enemy
 
 class load:
     def load_map(self, map_file, algorithm, priority):
@@ -16,7 +18,11 @@ class load:
                         wall_agent = metal(self.schedule.get_agent_count(), self)
                         self.schedule.add(wall_agent)
                         self.grid.place_agent(wall_agent, (x, y))
-                    elif cell != "M":
+                    elif cell == "R":
+                        rock_agent = rock(self.schedule.get_agent_count(), self)
+                        self.schedule.add(rock_agent)
+                        self.grid.place_agent(rock_agent, (x,y))
+                    else:
                         grass_agent = grass(self.schedule.get_agent_count(), self)
                         self.schedule.add(grass_agent)
                         self.grid.place_agent(grass_agent, (x, y))
@@ -25,7 +31,11 @@ class load:
                         bomberman_agent = bomberman(self.schedule.get_agent_count(), self, algorithm, priority)
                         self.schedule.add(bomberman_agent)
                         self.grid.place_agent(bomberman_agent, (x, y))
-                        self.newBombermanAgent = bomberman_agent  
+                        self.newBombermanAgent = bomberman_agent
+                    elif cell == "E":
+                        enemy_agent = enemy(self.schedule.get_agent_count(), self, priority)
+                        self.schedule.add(enemy_agent)
+                        self.grid.place_agent(enemy_agent, (x,y))  
                     elif cell == "C_g":
                         goal_agent = salida(self.schedule.get_agent_count(), self)
                         self.schedule.add(goal_agent)

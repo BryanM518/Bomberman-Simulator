@@ -7,15 +7,17 @@ from agents.bomberman import bomberman
 from agents.metal import metal
 from agents.salida import salida
 from agents.grass import grass
+from agents.rock import rock
+from agents.enemy import enemy
 from mesa.visualization.modules import CanvasGrid
 from mesa.visualization import Choice
 from utils.load import load
 
-CANVAS_WIDTH = 800
-CANVAS_HEIGHT = 800
+CANVAS_WIDTH = 500
+CANVAS_HEIGHT = 500
 MAP_DIR = "maps/"
 DEFAULT_ALGORITHM = "BFS"
-DEFAULT_PRIORITY = "→ ↓ ↑ ←"
+DEFAULT_PRIORITY = "← ↑ → ↓"
 
 def get_map_file_path():
     root = tk.Tk()
@@ -51,7 +53,8 @@ def create_simulation_params(width, height, map_file_name):
             description="Seleccione el orden de prioridad de búsqueda que tendrá el agente",
             choices=[
                 "→ ↓ ↑ ←", "→ ↑ ← ↓", "↑ → ← ↓", "↑ ← ↓ →", 
-                "↓ ↑ → ←", "↓ ← → ↑", "← → ↓ ↑", "← ↓ ↑ →"
+                "↓ ↑ → ←", "↓ ← → ↑", "← → ↓ ↑", "← ↓ ↑ →",
+                "← ↑ → ↓"
             ],
             value=DEFAULT_PRIORITY
         )
@@ -60,12 +63,14 @@ def create_simulation_params(width, height, map_file_name):
 
 def agent_portrayal(agent):
     portrayal_map = {
-        metal: {"Shape": "images/paredMetal.jpg", "Layer": 0, "w": 1, "h": 1},
-        bomberman: {"Shape": "images/bomberman.png", "Layer": 1, "w": 1, "h": 1},
+        metal: {"Shape": "images/paredMetal.jpg", "Layer": 0, "w": 1, "h": 1,},
+        rock: {"Shape": "images/pared.webp", "Layer": 0, "w": 1, "h": 1,},
+        bomberman: {"Shape": "images/agentBomberman.png", "Layer": 1,},
+        enemy: {"Shape": "images/enemy.png", "Layer": 1},
         salida: {"Shape": "images/salida.png", "Layer": 1, "w": 1, "h": 1},
         grass: lambda a: {
             "Shape": "images/grass.png" if a.visited == 0 else "images/blanco.png",
-            "Layer": 1, "w": 1, "h": 1, "text": a.label, "text_color": "black"
+            "Layer": 1, "w": 1, "h": 1, "text": a.label, "text_color": "black",
         }
     }
 

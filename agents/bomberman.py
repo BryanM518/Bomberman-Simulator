@@ -3,6 +3,7 @@ from agents.grass import grass
 from algoritms.BFS import BFS
 from algoritms.DFS import DFS
 from algoritms.UC import UC
+from algoritms.Astar import AStar
 
 class bomberman(Agent):
     def __init__(self, unique_id, model, search_type, priority):
@@ -47,6 +48,8 @@ class bomberman(Agent):
             return DFS(self.model.grid, self.pos, self.model.goal, self.priority)
         elif self.search_type == "UC":
             return UC(self.model.grid, self.pos, self.model.goal, self.priority)
+        elif self.search_type == "A*":
+            return AStar(self.model.grid, self.pos, self.model.goal, self.priority)
         else:
             print("Tipo de búsqueda no válido.")
             return None

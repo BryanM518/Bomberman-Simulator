@@ -13,8 +13,8 @@ from mesa.visualization.modules import CanvasGrid
 from mesa.visualization import Choice
 from utils.load import load
 
-CANVAS_WIDTH = 500
-CANVAS_HEIGHT = 500
+CANVAS_WIDTH = 1100
+CANVAS_HEIGHT = 850
 MAP_DIR = "maps/"
 DEFAULT_ALGORITHM = "BFS"
 DEFAULT_PRIORITY = "← ↑ → ↓"
@@ -45,7 +45,7 @@ def create_simulation_params(width, height, map_file_name):
         "algorithm": Choice(
             name='Método de búsqueda',
             description="Seleccione el método de búsqueda para llegar a la meta",
-            choices=["BFS", "DFS", "UC"],
+            choices=["BFS", "DFS", "UC", "A*"],
             value=DEFAULT_ALGORITHM
         ),
         "priority": Choice(

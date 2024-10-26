@@ -31,6 +31,7 @@ class model(Model):
 
         # Leer el mapa desde el archivo
         load.load_map(self, self.map_file, algorithm, self.priority)
+        print("La posición de las rocas es la siguiente: ",self.rocks)
 
     def step(self) -> None:
         self.schedule.step()

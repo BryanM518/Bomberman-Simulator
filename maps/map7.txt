@@ -3,4 +3,4 @@ C,M,C,M,C,M,C,M,C,M,C
 C,C,C,C,C,C,C,C,C,C,C
 C,M,C,M,C,M,C,M,C,M,C
 C,C,C,C,C,C,C,C,C,C,C
-B,C,C,C,C,C,C,C,C,C_g,C
+B,C,C,R,R,R,C,C,C,C_g,C

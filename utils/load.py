@@ -10,6 +10,7 @@ class load:
         with open(map_file, "r") as f:
             lines = f.readlines()
             lines = lines[::-1]  # Invertir las líneas para darle vuelta al mapa verticalmente
+            self.rocks = []
             
             for y, line in enumerate(lines):
                 line = line.strip().split(",")  
@@ -22,6 +23,7 @@ class load:
                         rock_agent = rock(self.schedule.get_agent_count(), self)
                         self.schedule.add(rock_agent)
                         self.grid.place_agent(rock_agent, (x,y))
+                        self.rocks.append((x,y))
                     else:
                         grass_agent = grass(self.schedule.get_agent_count(), self)
                         self.schedule.add(grass_agent)

@@ -9,6 +9,7 @@ class HillClimbing(PathFinder):
         max_level = 0
         last_step_used_by_level = {}
         expanded = []
+        cost_so_far = {self.start: 0}
 
         while True:
             new_level = []
@@ -50,10 +51,12 @@ class HillClimbing(PathFinder):
 
                 for n in neighbors:
                     if self.is_accessible(n) and n not in visited and n not in expanded:
+                        cost_so_far[n] = cost_so_far[past_step] + 10
+                        print(f"En la casilla {n} ha dado {cost_so_far[n]}")
                         if self.heuristic == "Manhattan":
-                            accessible_neighbors.append((n, self.manhattan_distance(n, self.goal)))
+                            accessible_neighbors.append((n, self.manhattan_distance(n, self.goal) + cost_so_far[n]))
                         else:
-                            accessible_neighbors.append((n, self.euclidean_distance(n, self.goal)))
+                            accessible_neighbors.append((n, self.euclidean_distance(n, self.goal) + cost_so_far[n]))
                         ##self.label_grass(n)
                         ##expanded.append(n) ## ?????????????
             

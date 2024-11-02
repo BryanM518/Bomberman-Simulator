@@ -9,6 +9,7 @@ class BeamSearch(PathFinder):
         actual_level = 0
         last_step_used_by_level = {}
         expanded = []
+        cost_so_far = {self.start: 0}
 
         while True:
             new_level = []
@@ -34,11 +35,13 @@ class BeamSearch(PathFinder):
 
                     for j in neighbors:
                         if self.is_accessible(j) and j not in visited:
+                            cost_so_far[j] = cost_so_far[i[0]] + 10
+                            ##print(f"En la casilla {j} ha dado {cost_so_far[j]}")
                             self.came_from[j] = i[0]
                             if self.heuristic == "Manhattan":
-                                new_level.append((j, self.manhattan_distance(j, self.goal)))
+                                new_level.append((j, self.manhattan_distance(j, self.goal) + cost_so_far[j]))
                             else:
-                                new_level.append((j, self.euclidean_distance(j, self.goal)))
+                                new_level.append((j, self.euclidean_distance(j, self.goal) + cost_so_far[j]))
 
                         if j == self.goal:
                             print("Se encontró resultado: ")

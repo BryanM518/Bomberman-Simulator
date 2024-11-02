@@ -19,11 +19,6 @@ class load:
                         wall_agent = metal(self.schedule.get_agent_count(), self)
                         self.schedule.add(wall_agent)
                         self.grid.place_agent(wall_agent, (x, y))
-                    elif cell == "R":
-                        rock_agent = rock(self.schedule.get_agent_count(), self)
-                        self.schedule.add(rock_agent)
-                        self.grid.place_agent(rock_agent, (x,y))
-                        self.rocks.append((x,y))
                     else:
                         grass_agent = grass(self.schedule.get_agent_count(), self)
                         self.schedule.add(grass_agent)
@@ -37,7 +32,12 @@ class load:
                     elif cell == "E":
                         enemy_agent = enemy(self.schedule.get_agent_count(), self, priority)
                         self.schedule.add(enemy_agent)
-                        self.grid.place_agent(enemy_agent, (x,y))  
+                        self.grid.place_agent(enemy_agent, (x,y))
+                    elif cell == "R":
+                        rock_agent = rock(self.schedule.get_agent_count(), self)
+                        self.schedule.add(rock_agent)
+                        self.grid.place_agent(rock_agent, (x,y))
+                        self.rocks.append((x,y)) 
                     elif cell == "C_g":
                         goal_agent = salida(self.schedule.get_agent_count(), self)
                         self.schedule.add(goal_agent)

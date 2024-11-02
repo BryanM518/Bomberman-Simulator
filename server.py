@@ -9,6 +9,8 @@ from agents.salida import salida
 from agents.grass import grass
 from agents.rock import rock
 from agents.enemy import enemy
+from agents.bomb import bomb
+from agents.explosion import explosion
 from mesa.visualization.modules import CanvasGrid
 from mesa.visualization import Choice
 from utils.load import load
@@ -64,10 +66,12 @@ def create_simulation_params(width, height, map_file_name):
 def agent_portrayal(agent):
     portrayal_map = {
         metal: {"Shape": "images/paredMetal.jpg", "Layer": 0, "w": 1, "h": 1,},
-        rock: {"Shape": "images/pared.webp", "Layer": 0, "w": 1, "h": 1,},
+        rock: {"Shape": "images/pared.webp", "Layer": 1, "w": 1, "h": 1,},
         bomberman: {"Shape": "images/agentBomberman.png", "Layer": 1,},
         enemy: {"Shape": "images/enemy.png", "Layer": 1},
         salida: {"Shape": "images/salida.png", "Layer": 1, "w": 1, "h": 1},
+        bomb: {"Shape": "images/bomb.webp", "Layer": 1, "w": 1, "h": 1},
+        explosion : {"Shape": "images/explosion.png", "Layer": 2, "w": 1, "h": 1},
         grass: lambda a: {
             "Shape": "images/grass.png" if a.visited == 0 else "images/blanco.png",
             "Layer": 1, "w": 1, "h": 1, "text": a.label, "text_color": "black",

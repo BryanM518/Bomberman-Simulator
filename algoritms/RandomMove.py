@@ -9,11 +9,14 @@ class RandomMove(PathFinder):
         filtered_steps = []
 
         for next_pos in possible_steps:
-            if self.is_accessible(next_pos):
+            if self.is_accessible_for_enemy(next_pos):
                 filtered_steps.append(next_pos)
-        
-        step_choice = random.choice(filtered_steps)
-        print("El paso elegido", step_choice)
+
+        if not (filtered_steps == []):
+            step_choice = random.choice(filtered_steps)
+            print("El paso elegido", step_choice)
+        else:
+            step_choice = current
 
         return step_choice
         

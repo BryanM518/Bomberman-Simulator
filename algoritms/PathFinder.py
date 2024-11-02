@@ -19,16 +19,25 @@ class PathFinder(ABC):
 
     def is_accessible(self, position):
         agents_in_cell = self.grid.get_cell_list_contents([position])
+        return all(not isinstance(a, metal) for a in agents_in_cell)
+    
+    def is_accessible_for_enemy(self, position):
+        agents_in_cell = self.grid.get_cell_list_contents([position])
         return all(not isinstance(a, metal) and (not isinstance(a, rock)) for a in agents_in_cell)
 
     def reconstruct_path(self, current):
         path = []
+        rocks = []
         print(self.came_from)
         while current is not None:
+            agents_in_cell = self.grid.get_cell_list_contents([current])
+            for i in agents_in_cell:
+                if isinstance(i, rock):
+                    rocks.append(current)
             path.append(current)
             current = self.came_from[current]
         path.reverse()
-        return path[1:]
+        return path[1:], rocks
 
     def label_grass(self, position):
         agents_in_cell = self.grid.get_cell_list_contents([position])

@@ -10,14 +10,20 @@ from algoritms.HillClimbing import HillClimbing
 from algoritms.BeamSearch import BeamSearch
 
 class bomberman(Agent):
-    def __init__(self, unique_id, model, search_type, priority):
+    def __init__(self, unique_id, model, search_type, priority, heuristic):
         super().__init__(unique_id, model)
         self.first_move = True
         self.path = []
+        self.history = []
         self.search_type = search_type
         self.priority = priority
         self.waiting_for_explosion = False
         self.rocks = []
+        self.retreat_steps = []
+        self.return_path = []
+        self.heuristic = heuristic
+
+        print("Heuristica elegida: ", heuristic)
 
     def step(self) -> None:
         if self.pos != self.model.goal:
@@ -25,6 +31,7 @@ class bomberman(Agent):
 
     def move_towards_goal(self) -> None:
         self.check_explosion_status()
+
         if self.first_move:
             path_finder = self.get_path_finder()
             if path_finder:
@@ -32,11 +39,30 @@ class bomberman(Agent):
             self.first_move = False
             print("Las rocas encontradas son las siguientes: ", self.rocks)
 
+        if self.retreat_steps:
+            # Retrocede un paso, y agrega esta posición al camino de retorno.
+            new_position = self.retreat_steps.pop(0)
+            self.return_path.insert(0, self.pos)  # Guarda la posición actual para el retorno
+            self.model.grid.move_agent(self, new_position)
+            print(f"Retrocedo a {new_position}")
+            return
+
+        if self.return_path:
+            # Si hay pasos en el camino de retorno, sigue avanzando de regreso.
+            new_position = self.return_path.pop(0)
+            self.model.grid.move_agent(self, new_position)
+            print(f"Regreso a {new_position}")
+            return
+
         if self.path:
             next_position = self.path[0]
             if next_position in self.rocks:
                 self.place_bomb(next_position)
             if not self.waiting_for_explosion:
+                # Guarda la posición actual en el historial antes de moverse.
+                self.history.append(self.pos)
+                
+                # Mueve a la siguiente posición y quita la posición de `path`.
                 new_position = self.path.pop(0)
                 self.model.grid.move_agent(self, new_position)
                 print(f"Me muevo a {new_position}")
@@ -44,14 +70,13 @@ class bomberman(Agent):
                 cell_agents = self.model.grid.get_cell_list_contents([new_position])
                 for agent in cell_agents:
                     if isinstance(agent, grass):
-                        agent.visited = 1 
+                        agent.visited = 1
             else:
                 print("Estoy esperando...")
         else:
             self.model.running = False
-            
             print("No hay camino disponible o ya se alcanzó la meta.")
-    
+
     def place_bomb(self, next_position):
         self.rocks.remove(next_position)
         bomb_agent = bomb(self.model.schedule.get_agent_count(), self.model, 1, self.pos)
@@ -59,26 +84,38 @@ class bomberman(Agent):
         self.model.grid.place_agent(bomb_agent, self.pos)
         self.waiting_for_explosion = True
 
+        # Genera los pasos de retroceso en función del cooldown de la bomba usando el historial.
+        cooldown_steps = bomb_agent.cooldown
+        if len(self.history) >= cooldown_steps:
+            # Toma las últimas posiciones recorridas para retroceder.
+            self.retreat_steps = self.history[-cooldown_steps:]
+            self.retreat_steps.reverse()  # Asegura que retroceda en el orden correcto.
+            # Limpia el historial para evitar un retroceso innecesario en futuros pasos.
+            self.history = self.history[:-cooldown_steps]
+        else:
+            self.retreat_steps = self.history[::-1]  # Retrocede todas las posiciones si no hay suficientes.
+            self.history = []
+
     def check_explosion_status(self):
         bombs = [agent for agent in self.model.schedule.agents if isinstance(agent, bomb)]
         explosions = [agent for agent in self.model.schedule.agents if isinstance(agent, explosion)]
-        if not bombs and not explosions:
-            print("Bomba explotó, recalculando ruta.")
+        if not bombs and not explosions and self.waiting_for_explosion:
+            print("Bomba explotó, comenzando regreso al punto de la bomba.")
             self.waiting_for_explosion = False
 
     def get_path_finder(self):
         if self.search_type == "BFS":
-            return BFS(self.model.grid, self.pos, self.model.goal, self.priority)
+            return BFS(self.model.grid, self.pos, self.model.goal, self.priority, self.heuristic)
         elif self.search_type == "DFS":
-            return DFS(self.model.grid, self.pos, self.model.goal, self.priority)
+            return DFS(self.model.grid, self.pos, self.model.goal, self.priority, self.heuristic)
         elif self.search_type == "UC":
-            return UC(self.model.grid, self.pos, self.model.goal, self.priority)
+            return UC(self.model.grid, self.pos, self.model.goal, self.priority, self.heuristic)
         elif self.search_type == "A*":
-            return AStar(self.model.grid, self.pos, self.model.goal, self.priority)
+            return AStar(self.model.grid, self.pos, self.model.goal, self.priority, self.heuristic)
         elif self.search_type == "Hill Climbing":
-            return HillClimbing(self.model.grid, self.pos, self.model.goal, self.priority)
+            return HillClimbing(self.model.grid, self.pos, self.model.goal, self.priority, self.heuristic)
         elif self.search_type == "Beam Search":
-            return BeamSearch(self.model.grid, self.pos, self.model.goal, self.priority)
+            return BeamSearch(self.model.grid, self.pos, self.model.goal, self.priority, self.heuristic)
         else:
             print("Tipo de búsqueda no válido.")
             return None

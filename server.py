@@ -20,6 +20,7 @@ CANVAS_HEIGHT = 850
 MAP_DIR = "maps/"
 DEFAULT_ALGORITHM = "BFS"
 DEFAULT_PRIORITY = "← ↑ → ↓"
+DEFAULT_HEURISTIC = "Manhattan"
 
 def get_map_file_path():
     root = tk.Tk()
@@ -59,13 +60,19 @@ def create_simulation_params(width, height, map_file_name):
                 "← ↑ → ↓"
             ],
             value=DEFAULT_PRIORITY
+        ),
+        "heuristic": Choice(
+            name='Heuristica',
+            description="Selecciona la heuristica para algoritmos informados",
+            choices= ["Manhattan", "Euclidiana"],
+            value=DEFAULT_HEURISTIC
         )
     }
 
 
 def agent_portrayal(agent):
     portrayal_map = {
-        metal: {"Shape": "images/paredMetal.jpg", "Layer": 0, "w": 1, "h": 1,},
+        metal: {"Shape": "images/paredMetal.jpg", "Layer": 3, "w": 1, "h": 1,},
         rock: {"Shape": "images/pared.webp", "Layer": 1, "w": 1, "h": 1,},
         bomberman: {"Shape": "images/agentBomberman.png", "Layer": 1,},
         enemy: {"Shape": "images/enemy.png", "Layer": 1},

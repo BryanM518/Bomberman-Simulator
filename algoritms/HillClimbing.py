@@ -50,7 +50,10 @@ class HillClimbing(PathFinder):
 
                 for n in neighbors:
                     if self.is_accessible(n) and n not in visited and n not in expanded:
-                        accessible_neighbors.append((n, self.manhattan_distance(n, self.goal)))
+                        if self.heuristic == "Manhattan":
+                            accessible_neighbors.append((n, self.manhattan_distance(n, self.goal)))
+                        else:
+                            accessible_neighbors.append((n, self.euclidean_distance(n, self.goal)))
                         ##self.label_grass(n)
                         ##expanded.append(n) ## ?????????????
             
@@ -61,8 +64,3 @@ class HillClimbing(PathFinder):
                 actual_level = max_level
 
                 dict[max_level] = new_level
-
-    def manhattan_distance(self, pos1, pos2):
-        x1, y1 = pos1
-        x2, y2 = pos2
-        return (abs(x1 - x2) + abs(y1 - y2)) * 10

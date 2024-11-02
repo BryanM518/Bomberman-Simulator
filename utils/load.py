@@ -6,7 +6,7 @@ from agents.rock import rock
 from agents.enemy import enemy
 
 class load:
-    def load_map(self, map_file, algorithm, priority):
+    def load_map(self, map_file, algorithm, priority, heuristic):
         with open(map_file, "r") as f:
             lines = f.readlines()
             lines = lines[::-1]  # Invertir las líneas para darle vuelta al mapa verticalmente
@@ -25,7 +25,7 @@ class load:
                         self.grid.place_agent(grass_agent, (x, y))
                         
                     if cell == "B":
-                        bomberman_agent = bomberman(self.schedule.get_agent_count(), self, algorithm, priority)
+                        bomberman_agent = bomberman(self.schedule.get_agent_count(), self, algorithm, priority, heuristic)
                         self.schedule.add(bomberman_agent)
                         self.grid.place_agent(bomberman_agent, (x, y))
                         self.newBombermanAgent = bomberman_agent

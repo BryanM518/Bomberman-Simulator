@@ -4,7 +4,7 @@ from agents.grass import grass
 from agents.rock import rock
 
 class PathFinder(ABC):
-    def __init__(self, grid, start, goal, priority):
+    def __init__(self, grid, start, goal, priority, heuristic):
         self.grid = grid
         self.start = start
         self.goal = goal
@@ -12,6 +12,7 @@ class PathFinder(ABC):
         self.came_from = {start: None}
         self.visited = set()
         self.counter = 0
+        self.heuristic = heuristic
 
     @abstractmethod
     def find_path(self):
@@ -62,3 +63,13 @@ class PathFinder(ABC):
                 if current[1] < possible_steps[2][1]:
                     new_possible_steps.append(possible_steps[2])
         return new_possible_steps
+    
+    def manhattan_distance(self, pos1, pos2):
+        x1, y1 = pos1
+        x2, y2 = pos2
+        return (abs(x1 - x2) + abs(y1 - y2)) * 10
+    
+    def euclidean_distance(self, pos1, pos2):
+        x1, y1 = pos1
+        x2, y2 = pos2
+        return (((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5) * 10

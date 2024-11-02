@@ -35,7 +35,10 @@ class BeamSearch(PathFinder):
                     for j in neighbors:
                         if self.is_accessible(j) and j not in visited:
                             self.came_from[j] = i[0]
-                            new_level.append((j, self.manhattan_distance(j, self.goal)))
+                            if self.heuristic == "Manhattan":
+                                new_level.append((j, self.manhattan_distance(j, self.goal)))
+                            else:
+                                new_level.append((j, self.euclidean_distance(j, self.goal)))
 
                         if j == self.goal:
                             print("Se encontró resultado: ")
@@ -57,8 +60,3 @@ class BeamSearch(PathFinder):
                     dict[actual_level] += new_level
                 # self.came_from[selected_step[0]] = past_step
                 # past_step = selected_step[0]
-
-    def manhattan_distance(self, pos1, pos2):
-        x1, y1 = pos1
-        x2, y2 = pos2
-        return (abs(x1 - x2) + abs(y1 - y2)) * 10

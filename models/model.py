@@ -19,7 +19,7 @@ priorities = {
 }
 
 class model(Model):
-    def __init__(self, number_of_agents, width, height, map_file, algorithm, priority):
+    def __init__(self, number_of_agents, width, height, map_file, algorithm, priority, heuristic):
         self.num_agents = number_of_agents
         self.grid = MultiGrid(width, height, True)
         self.schedule = RandomActivation(self)
@@ -28,9 +28,10 @@ class model(Model):
         self.map_file = f"maps/{map_file}"
         self.algorithm = algorithm
         self.priority = priorities[priority]
+        self.heuristic = heuristic
 
         # Leer el mapa desde el archivo
-        load.load_map(self, self.map_file, algorithm, self.priority)
+        load.load_map(self, self.map_file, algorithm, self.priority, heuristic)
         print("La posición de las rocas es la siguiente: ",self.rocks)
 
     def step(self) -> None:

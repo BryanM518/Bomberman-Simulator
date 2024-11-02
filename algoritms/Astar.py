@@ -26,7 +26,10 @@ class AStar(PathFinder):
                     if next_pos not in cost_so_far or new_cost < cost_so_far[next_pos]:
                         cost_so_far[next_pos] = new_cost
                         step_counter -= 1  # Ahora el paso es negativo, por lo que los nuevos tienen mayor prioridad
-                        heuristic = self.manhattan_distance(next_pos, self.goal)
+                        if self.heuristic == "Manhattan":
+                            heuristic = self.manhattan_distance(next_pos, self.goal)
+                        else:
+                            heuristic = self.euclidean_distance(next_pos, self.goal)
                         priority = new_cost + heuristic
                         heapq.heappush(queue, (priority, step_counter, next_pos))
                         ##self.label_grass(next_pos)
@@ -35,8 +38,3 @@ class AStar(PathFinder):
                     print(f"Evaluating node {next_pos}, cost: {new_cost}, heuristic: {heuristic}, priority: {priority}")
 
         return None
-
-    def manhattan_distance(self, pos1, pos2):
-        x1, y1 = pos1
-        x2, y2 = pos2
-        return (abs(x1 - x2) + abs(y1 - y2)) * 10

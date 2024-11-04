@@ -58,7 +58,7 @@ class load:
                         goal_found = True
 
             # Colocar un agente goal en una posición aleatoria de self.rocks si no hay C_g en el archivo
-            if not goal_found and self.rocks and goal_pos == "Aleatorio":
+            if not goal_found and self.rocks:
                 goal_position = random.choice(self.rocks)
                 goal_agent = salida(self.schedule.get_agent_count(), self)
                 self.schedule.add(goal_agent)

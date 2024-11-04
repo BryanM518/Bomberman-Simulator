@@ -36,8 +36,11 @@ def load_map_dimensions(file_path):
         exit()
     map_file_name = os.path.basename(file_path)
     width, height = load.get_map_dimensions(f"{MAP_DIR}/{map_file_name}")
-    return map_file_name, width, height
+    rocks = load.get_rock_positions(file_path)
+    return map_file_name, width, height, rocks
 
+map_file_path = get_map_file_path()
+map_file_name, width, height, rocks = load_map_dimensions(map_file_path)
 
 def create_simulation_params(width, height, map_file_name):
     return {
@@ -66,6 +69,12 @@ def create_simulation_params(width, height, map_file_name):
             description="Selecciona la heuristica para algoritmos informados",
             choices= ["Manhattan", "Euclidiana"],
             value=DEFAULT_HEURISTIC
+        ),
+        "goal_pos": Choice(
+            name = "Posición de la meta",
+            description= "Selecciona en que lugar se va a encontrar la meta",
+            choices = rocks + ["Aleatorio"],
+            value = "Aleatorio"
         )
     }
 
@@ -89,10 +98,6 @@ def agent_portrayal(agent):
     if agent_type in portrayal_map:
         portrayal = portrayal_map[agent_type]
         return portrayal(agent) if callable(portrayal) else portrayal
-
-
-map_file_path = get_map_file_path()
-map_file_name, width, height = load_map_dimensions(map_file_path)
 
 grid = CanvasGrid(agent_portrayal, width, height, CANVAS_WIDTH, CANVAS_HEIGHT)
 simulation_params = create_simulation_params(width, height, map_file_name)

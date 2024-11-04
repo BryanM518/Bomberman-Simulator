@@ -8,7 +8,7 @@ class enemy(Agent):
         self.priority = priority
     
     def step(self) -> None:
-        step = RandomMove(self.model.grid, self.pos, self.model.goal, self.priority)
+        step = RandomMove(self.model.grid, self.pos, self.model.goal, self.priority, "")
         step = step.find_path()
         self.model.grid.move_agent(self, step)
 

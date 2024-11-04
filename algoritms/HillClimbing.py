@@ -31,7 +31,7 @@ class HillClimbing(PathFinder):
                 actual_steps.remove(selected_step)
 
                 ## Tener en cuenta
-                self.label_grass(selected_step[0])
+                ## self.label_grass(selected_step[0])
 
                 if actual_steps == []:
                     dict.pop(actual_level)
@@ -57,8 +57,8 @@ class HillClimbing(PathFinder):
                             accessible_neighbors.append((n, self.manhattan_distance(n, self.goal) + cost_so_far[n]))
                         else:
                             accessible_neighbors.append((n, self.euclidean_distance(n, self.goal) + cost_so_far[n]))
-                        ##self.label_grass(n)
-                        ##expanded.append(n) ## ?????????????
+                        self.label_grass(n)
+                        expanded.append(n) ## ?????????????a
             
                 new_level = accessible_neighbors
 

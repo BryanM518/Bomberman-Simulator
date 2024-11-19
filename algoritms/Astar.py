@@ -13,8 +13,9 @@ class AStar(PathFinder):
             if current == self.goal:
                 return self.reconstruct_path(current)
 
+            if current not in self.visited:
+                self.label_grass(current)
             self.visited.add(current)
-            self.label_grass(current)
 
             possible_steps = self.grid.get_neighborhood(current, moore=False, include_center=False)
             ordered_steps = self.get_ordered_steps(possible_steps, current)

@@ -82,7 +82,7 @@ def create_simulation_params(width, height, map_file_name):
 def agent_portrayal(agent):
     portrayal_map = {
         metal: {"Shape": "images/paredMetal.jpg", "Layer": 3, "w": 1, "h": 1,},
-        rock: {"Shape": "images/pared.webp", "Layer": 1, "w": 1, "h": 1,},
+        rock: lambda a: {"Shape": "images/pared.webp", "Layer": 1, "w": 1, "h": 1, "text": a.label},
         bomberman: {"Shape": "images/agentBomberman.png", "Layer": 1,},
         enemy: {"Shape": "images/enemy.png", "Layer": 1},
         salida: {"Shape": "images/salida.png", "Layer": 1, "w": 1, "h": 1},

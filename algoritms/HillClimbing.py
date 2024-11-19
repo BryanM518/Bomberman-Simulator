@@ -10,6 +10,7 @@ class HillClimbing(PathFinder):
         last_step_used_by_level = {}
         expanded = []
         cost_so_far = {self.start: 0}
+        repeat = 0
 
         while True:
             new_level = []
@@ -17,6 +18,7 @@ class HillClimbing(PathFinder):
             print(f"Para el nivel {actual_level} se obtiene {actual_steps}")
 
             if actual_steps == []:
+                repeat += 1
                 dict.pop(max_level)
                 self.came_from.pop(past_step)
                 max_level -= 1
@@ -31,7 +33,7 @@ class HillClimbing(PathFinder):
                 actual_steps.remove(selected_step)
 
                 ## Tener en cuenta
-                ## self.label_grass(selected_step[0])
+                self.label_grass(selected_step[0])
 
                 if actual_steps == []:
                     dict.pop(actual_level)
@@ -42,6 +44,7 @@ class HillClimbing(PathFinder):
                         print(i)
                     
                     print("Nivel maximo ", max_level)
+                    print("Cantidad de veces que retorno: ", repeat)
                     return self.reconstruct_path(past_step)
                 
                 
@@ -57,7 +60,7 @@ class HillClimbing(PathFinder):
                             accessible_neighbors.append((n, self.manhattan_distance(n, self.goal) + cost_so_far[n]))
                         else:
                             accessible_neighbors.append((n, self.euclidean_distance(n, self.goal) + cost_so_far[n]))
-                        self.label_grass(n)
+                        ##self.label_grass(n)
                         expanded.append(n) ## ?????????????a
             
                 new_level = accessible_neighbors

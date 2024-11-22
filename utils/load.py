@@ -33,7 +33,7 @@ class load:
                         self.grid.place_agent(bomberman_agent, (x, y))
                         self.newBombermanAgent = bomberman_agent
                     elif cell == "E":
-                        enemy_agent = enemy(self.schedule.get_agent_count(), self, priority)
+                        enemy_agent = enemy(self.schedule.get_agent_count(), self, priority, algorithm, heuristic)
                         self.schedule.add(enemy_agent)
                         self.grid.place_agent(enemy_agent, (x,y))
                     elif cell == "R":

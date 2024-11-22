@@ -13,13 +13,13 @@ class AStar(PathFinder):
             if current == self.goal:
                 return self.reconstruct_path(current)
 
-            if current not in self.visited:
-                self.label_grass(current)
+            ##if current not in self.visited:
+            ##    self.label_grass(current)
             self.visited.add(current)
 
             possible_steps = self.grid.get_neighborhood(current, moore=False, include_center=False)
             ordered_steps = self.get_ordered_steps(possible_steps, current)
-            print(f"Posición actual {current}, Pasos: {ordered_steps}")
+            ##print(f"Posición actual {current}, Pasos: {ordered_steps}")
 
             for next_pos in reversed(ordered_steps):
                 new_cost = cost_so_far[current] + 10
@@ -36,6 +36,6 @@ class AStar(PathFinder):
                         ##self.label_grass(next_pos)
                         self.came_from[next_pos] = current
                     
-                    print(f"Evaluating node {next_pos}, cost: {new_cost}, heuristic: {heuristic}, priority: {priority}")
+                    ##print(f"Evaluating node {next_pos}, cost: {new_cost}, heuristic: {heuristic}, priority: {priority}")
 
-        return None
+        return None, None

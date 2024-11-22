@@ -33,7 +33,7 @@ class HillClimbing(PathFinder):
                 actual_steps.remove(selected_step)
 
                 ## Tener en cuenta
-                self.label_grass(selected_step[0])
+                #self.label_grass(selected_step[0])
 
                 if actual_steps == []:
                     dict.pop(actual_level)

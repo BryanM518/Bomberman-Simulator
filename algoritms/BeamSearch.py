@@ -24,8 +24,8 @@ class BeamSearch(PathFinder):
                 next_level_steps = actual_steps[:k]
 
                 print("next level steps: ", next_level_steps)
-                for i in next_level_steps:
-                    self.label_grass(i[0])
+                #for i in next_level_steps:
+                    #self.label_grass(i[0])
                 for i in next_level_steps:
                     visited.append(i[0])
                     actual_steps.remove(i)

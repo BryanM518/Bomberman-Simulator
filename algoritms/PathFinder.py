@@ -3,6 +3,7 @@ from agents.metal import metal
 from agents.grass import grass
 from agents.rock import rock
 from agents.salida import salida
+from agents.item import item
 
 class PathFinder(ABC):
     def __init__(self, grid, start, goal, priority, heuristic):
@@ -30,15 +31,12 @@ class PathFinder(ABC):
     def is_valid_grass_cell(self, position):
         agents_in_cell = self.grid.get_cell_list_contents([position])
         
-        # Caso donde solo hay un agente en la celda
         if len(agents_in_cell) == 1:
             return isinstance(agents_in_cell[0], grass)
         
-        # Caso donde hay múltiples agentes en la celda
         has_grass = any(isinstance(agent, grass) for agent in agents_in_cell)
-        only_rock_or_metal = all(isinstance(agent, (rock, salida, grass)) for agent in agents_in_cell)
+        only_rock_or_metal = all(isinstance(agent, (rock, salida, grass, item)) for agent in agents_in_cell)
         
-        # La celda es válida si contiene al menos un 'grass' y los demás son solo 'rock' o 'metal'
         return has_grass and only_rock_or_metal
 
     def reconstruct_path(self, current):

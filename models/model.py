@@ -30,7 +30,6 @@ class model(Model):
         self.priority = priorities[priority]
         self.heuristic = heuristic
 
-        # Leer el mapa desde el archivo
         load.load_map(self, self.map_file, algorithm, self.priority, heuristic, tuple(goal_pos))
         print("La posición de las rocas es la siguiente: ",self.rocks)
 
@@ -44,6 +43,5 @@ class model(Model):
                 print("Bomberman ha sido derrotado")
                 self.running = False
         
-        # Verificar si Bomberman ha llegado a la salida
         if self.newBombermanAgent.pos == self.goal:
             self.running = False

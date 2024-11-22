@@ -19,12 +19,8 @@ class enemy(Agent):
         
         else:
             minmax = MinMaxEnemy(self.model.grid, self.pos, self.model.goal, self.priority, self.heuristic)
+            print("TIPO DE ESTO: ", type(self.model.newBombermanAgent))
             _, step = minmax.find_path(1, -np.inf, np.inf, 0, self.pos, self.model.newBombermanAgent.pos)
             self.model.grid.move_agent(self, step)
         
         agents_in_cell = self.model.grid.get_cell_list_contents(step)
-
-        for a in agents_in_cell:
-            if isinstance(a, bomberman):
-                print("Bomberman ha sido derrotado")
-                self.model.running = False

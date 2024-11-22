@@ -3,7 +3,7 @@ M,M,C,C,C,C,E,C,C,C,C,C,C,C,C,M,M
 M,M,C,M,M,M,M,M,C,M,M,M,M,M,C,M,M
 M,E,C,C,C,C,C,C,C,C,C,C,C,C,C,E,M
 M,C,M,M,M,M,C,M,M,C,M,M,M,M,M,C,M
-M,C,C,B,C,C,C,C,C,C,C,C,C,C,C,C,M
-M,M,M,M,C,M,M,M,M,M,M,M,M,E,M,M,M
-M,M,M,M,C,C,C,C,C,C,C,C,E,C_g,M,M,M
+M,C,C,B,C,C,C,C,C,C,C,e,C,C,C,C,M
+M,M,M,M,C,M,M,M,M,M,M,M,M,C,M,M,M
+M,M,M,M,C,C,C,C,C,C,C,C,C,C_g,M,M,M
 M,M,M,M,M,M,M,M,M,M,M,M,M,M,M,M,M

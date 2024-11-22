@@ -10,6 +10,7 @@ from agents.grass import grass
 from agents.rock import rock
 from agents.enemy import enemy
 from agents.bomb import bomb
+from agents.item import item
 from agents.explosion import explosion
 from mesa.visualization.modules import CanvasGrid
 from mesa.visualization import Choice
@@ -87,6 +88,7 @@ def agent_portrayal(agent):
         enemy: {"Shape": "images/enemy.png", "Layer": 1},
         salida: {"Shape": "images/salida.png", "Layer": 1, "w": 1, "h": 1},
         bomb: {"Shape": "images/bomb.webp", "Layer": 1, "w": 1, "h": 1},
+        item: {"Shape": "images/upgradeItem.png", "Layer":1, "w":1, "h":1},
         explosion : {"Shape": "images/explosion.png", "Layer": 2, "w": 1, "h": 1},
         grass: lambda a: {
             "Shape": "images/grass.png" if a.visited == 0 else "images/blanco.png",

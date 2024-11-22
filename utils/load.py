@@ -4,6 +4,7 @@ from agents.metal import metal
 from agents.grass import grass
 from agents.rock import rock
 from agents.enemy import enemy
+from agents.item import item
 import random
 
 class load:
@@ -57,26 +58,31 @@ class load:
                         self.goal = (x, y)
                         goal_found = True
 
-            # Colocar un agente goal en una posición aleatoria de self.rocks si no hay C_g en el archivo
             if not goal_found and self.rocks:
                 goal_position = random.choice(self.rocks)
                 goal_agent = salida(self.schedule.get_agent_count(), self)
                 self.schedule.add(goal_agent)
                 self.grid.place_agent(goal_agent, goal_position)
                 self.goal = goal_position
+            
+            if self.rocks:
+                item_position = random.choice(self.rocks)
+                item_agent = item(self.schedule.get_agent_count(), self)
+                self.schedule.add(item_agent)
+                self.grid.place_agent(item_agent, item_position)
 
     def get_map_dimensions(map_file):
         with open(map_file, "r") as f:
             lines = f.readlines()
-            height = len(lines)  # Número de líneas es la altura
-            width = len(lines[0].strip().split(",")) if height > 0 else 0  # Longitud de la primera línea es el ancho
+            height = len(lines)
+            width = len(lines[0].strip().split(",")) if height > 0 else 0
         return width, height
     
     def get_rock_positions(map_file):
         rock_positions = []
         with open(map_file, "r") as f:
             lines = f.readlines()
-            lines = lines[::-1]  # Invertir las líneas para darle vuelta al mapa verticalmente
+            lines = lines[::-1]
             for y, line in enumerate(lines):
                 line = line.strip().split(",")
                 for x, cell in enumerate(line):

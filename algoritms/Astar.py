@@ -2,11 +2,10 @@ import heapq
 from algoritms.PathFinder import PathFinder
 
 class AStar(PathFinder):
-    def find_path(self):
-        # Inicializa la cola de prioridad con (costo acumulado + heurística, paso inverso, posición)
+    def find_path(self, user = "B"):
         queue = [(0, 0, self.start)]
         cost_so_far = {self.start: 0}
-        step_counter = 0  # Para controlar el orden de inserción
+        step_counter = 0
 
         while queue:
             current_priority, _, current = heapq.heappop(queue)
@@ -23,10 +22,14 @@ class AStar(PathFinder):
 
             for next_pos in reversed(ordered_steps):
                 new_cost = cost_so_far[current] + 10
-                if next_pos not in self.visited and self.is_accessible(next_pos):
+                if user == "B":
+                    validation = self.is_valid_grass_cell(next_pos)
+                elif user == "E":
+                    validation = self.is_accessible_for_enemy(next_pos)
+                if next_pos not in self.visited and validation:
                     if next_pos not in cost_so_far or new_cost < cost_so_far[next_pos]:
                         cost_so_far[next_pos] = new_cost
-                        step_counter -= 1  # Ahora el paso es negativo, por lo que los nuevos tienen mayor prioridad
+                        step_counter -= 1
                         if self.heuristic == "Manhattan":
                             heuristic = self.manhattan_distance(next_pos, self.goal)
                         else:

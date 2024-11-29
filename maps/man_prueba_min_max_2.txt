@@ -1,0 +1,9 @@
+M,M,M,M,M,M,M,M,M,M,M,M,M,M,M
+M,M,M,M,M,M,M,M,M,M,M,M,M,M,M
+M,M,M,M,C,M,M,M,M,M,M,M,M,M,M
+M,C,C,C,C,C,C,C,C,C,C,C,E,C_g,M
+M,C,M,M,M,M,M,M,M,M,C,M,M,C,M
+M,E,C,B,C,C,C,C,C,C,C,C,C,C,M
+M,M,M,M,C,M,M,M,C,M,M,M,M,C,M
+M,M,M,M,C,C,C,C,C,C,C,C,C,C,M
+M,M,M,M,M,M,M,M,M,M,M,M,M,M,M

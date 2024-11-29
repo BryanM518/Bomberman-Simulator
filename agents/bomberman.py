@@ -1,3 +1,4 @@
+import numpy as np
 from mesa import Agent
 from agents.grass import grass
 from agents.bomb import bomb
@@ -11,6 +12,7 @@ from algoritms.Astar import AStar
 from algoritms.HillClimbing import HillClimbing
 from algoritms.BeamSearch import BeamSearch
 from algoritms.Retreat import Retreat
+from algoritms.MinMaxEnemy import MinMaxEnemy
 
 class bomberman(Agent):
     def __init__(self, unique_id, model, search_type, priority, heuristic):
@@ -28,18 +30,39 @@ class bomberman(Agent):
         self.pd = 1
         self.wait_time = 0
         self.state = "moving_to_goal"
+        self.turn = 0
     
     def step(self) -> None:
-        cell_agents = self.model.grid.get_cell_list_contents([self.pos])
-        for agent in cell_agents:
-            if isinstance(agent, item):
-                self.pd += 1
-            
-                self.model.grid.remove_agent(agent)
-                self.model.schedule.remove(agent)
+        # if self.turn % 2 == 0:
+            cell_agents = self.model.grid.get_cell_list_contents([self.pos])
+            for agent in cell_agents:
+                if isinstance(agent, item):
+                    self.pd += 1
+                
+                    self.model.grid.remove_agent(agent)
+                    self.model.schedule.remove(agent)
 
-        if self.pos != self.model.goal:
-            self.move_towards_goal()
+            if self.pos != self.model.goal and (not self.search_type == "MinMax"):
+                self.move_towards_goal()
+            # else:
+            #     enemy_positions_list, _ = self.model.get_enemy_positions()
+            #     minmax = MinMaxEnemy(self.model.grid, self.pos, self.model.goal, self.priority, self.heuristic)
+            #     _, step = minmax.find_path(
+            #         marcadorTurno=0,
+            #         alpha=-np.inf,
+            #         beta=np.inf,
+            #         nivel=0,
+            #         enemy_step=enemy_positions_list[0],
+            #         bomberman_step=self.pos,
+            #         nenemy=0,
+            #         is_bomberman=True,
+            #         enemies_positions=enemy_positions_list
+            #     )
+            #     if step:
+            #         self.model.grid.move_agent(self, step)
+            #     else:
+            #         self.model.grid.move_agent(self, self.pos)
+        # self.turn += 1    
 
     def move_towards_goal(self) -> None:
         self.check_explosion_status()

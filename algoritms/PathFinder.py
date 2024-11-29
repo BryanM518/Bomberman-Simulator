@@ -42,7 +42,6 @@ class PathFinder(ABC):
     def reconstruct_path(self, current):
         path = []
         rocks = []
-        print(self.came_from)
         while current is not None:
             agents_in_cell = self.grid.get_cell_list_contents([current])
             for i in agents_in_cell:

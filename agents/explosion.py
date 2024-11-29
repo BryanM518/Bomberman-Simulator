@@ -1,5 +1,6 @@
 from mesa import Agent
 from agents.rock import rock
+from agents.enemy import enemy
 
 class explosion(Agent):
     def __init__(self, unique_id, model):
@@ -14,7 +15,7 @@ class explosion(Agent):
             agents_in_same_pos = self.model.grid.get_cell_list_contents([self.pos])
 
             for agent in agents_in_same_pos:
-                if isinstance(agent, rock):
+                if isinstance(agent, rock) or isinstance(agent, enemy):
                     print(f"Agente rock {agent.unique_id} eliminado por la explosión")
                     self.model.grid.remove_agent(agent)
                     self.model.schedule.remove(agent)

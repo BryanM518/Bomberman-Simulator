@@ -76,6 +76,12 @@ def create_simulation_params(width, height, map_file_name):
             description= "Selecciona en que lugar se va a encontrar la meta",
             choices = rocks + ["Aleatorio"],
             value = "Aleatorio"
+        ),
+        "difficulty": Choice(
+            name = "Escoger dificultad",
+            description="Se escoge el nivel de dificultad de juego",
+            choices= [1, 2, 3],
+            value = 1
         )
     }
 

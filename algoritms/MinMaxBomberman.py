@@ -5,6 +5,10 @@ from algoritms.Astar import AStar
 from itertools import product
 
 class MinMaxBomberman(PathFinder):
+    def __init__(self, grid, start, goal, priority, heuristic):
+        super().__init__(grid, start, goal, priority, heuristic)
+        self.num_nodes = []
+
     def find_path(self, marcadorTurno, alpha, beta, nivel, bomberman_step, max_level, enemies_positions, is_bomberman, is_chasing):
         
         if bomberman_step == self.goal:
@@ -23,15 +27,24 @@ class MinMaxBomberman(PathFinder):
 
             possible_steps = self.grid.get_neighborhood(bomberman_step, moore=False, include_center=False)
 
-            for move in possible_steps:
+            valid_possible_steps = []
+
+            for a in possible_steps:
+                if self.is_valid_grass_cell(a):
+                    valid_possible_steps.append(a)
+
+            i = 0
+            for move in valid_possible_steps:
                 if self.is_valid_grass_cell(move):
                     val, _ = self.find_path(marcadorTurno + 1, alpha, beta, nivel + 1, move, max_level, enemies_positions, is_bomberman, is_chasing)
 
+                    i += 1
                     if val > evalmax:
                         evalmax = val
                         best_move = move
                     alpha = max(alpha, val)
                     if beta <= alpha:
+                        self.num_nodes += possible_steps[i:]
                         break
 
             return evalmax if best_move else -np.inf, best_move
@@ -43,16 +56,19 @@ class MinMaxBomberman(PathFinder):
             if not posibles_combinaciones:
                 return evalmin, best_move 
             
+            i = 0
             for move in posibles_combinaciones:
                 move = list(move)
                 val, _ = self.find_path(marcadorTurno + 1, alpha, beta, nivel + 1, bomberman_step, max_level, move, is_bomberman, is_chasing)
 
+                i += 1 
                 if val < evalmin:
                     evalmin = val
                     best_move = move
                 beta = min(beta, val)
 
                 if beta <= alpha:
+                    self.num_nodes += posibles_combinaciones[i:]
                     break
 
             return evalmin if best_move else np.inf, best_move

@@ -95,7 +95,11 @@ class model(Model):
 
             minmaxb = MinMaxBomberman(self.grid, self.newBombermanAgent.pos, self.goal, self.priority, self.heuristic)
             _, steps = minmaxb.find_path(1, -np.inf, np.inf, 0, self.newBombermanAgent.pos, self.value, enemy_positions, True, is_chasing)
-            _, bomberman_step = minmaxb.find_path(0, -np.inf, np.inf, 0, self.newBombermanAgent.pos, self.value, enemy_positions, True, is_chasing)
+            minmaxb2 = MinMaxBomberman(self.grid, self.newBombermanAgent.pos, self.goal, self.priority, self.heuristic)
+            _, bomberman_step = minmaxb2.find_path(0, -np.inf, np.inf, 0, self.newBombermanAgent.pos, self.value, enemy_positions, True, is_chasing)
+
+            print(f"La cantidad de nodos que se podaron fueron: {len(minmaxb2.num_nodes)}")
+            print(f"Los estados que se podarón fueron los siguientes: {minmaxb2.num_nodes}")
 
             if self.newBombermanAgent.pos in steps and bomberman_step in enemy_positions:
                 print("Bomberman ha sido derrotado")

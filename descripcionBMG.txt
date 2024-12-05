@@ -1,0 +1,12 @@
+Para saber cuantos nodos se podaron se hizo lo siguiente:
+(En el archivo MinMaxBomberman)
+Para seleccionar este algorimo se selecciona MinMax2.
+
+1. En la línea 8 a la 10, se agrega una nueva variable al objeto MinMaxBomberman llamada num_nodes, la cual será una lista que vaya guardando los nodos que no se analizaron en el programa.
+
+Para la maximización(Cuando es turno de Bomberman) y para la minimización(Cuando es turno de los enemigos) se hizo lo mismo.
+
+2. En la línea 36, como en la línea 59, se agrego una variable i=0.
+3. En las líneas 41 y 64, después de que se haya analizado un nodo la variable i aumentará en 1.
+4. En las líneas 47 y 71, los cuales son las condiciones que nos confirman que se hizo una poda. Agregamos los nodos que se quedaron sin analizar. Estos nodos estan contenidos en la lista possible_steps.
+5. Con estos pasos obtenemos una lista con todos los pasos que se podaron, y para obtener el número de pasos que se podaron simplemente se sacará la longitud de la lista, como se ve en model, en la línea 101.

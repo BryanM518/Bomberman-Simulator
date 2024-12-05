@@ -1,7 +1,6 @@
 from mesa import Agent
 import numpy as np
 from algoritms.RandomMove import RandomMove
-from algoritms.MinMaxEnemy import MinMaxEnemy
 
 class enemy(Agent):
     def __init__(self, unique_id, model, priority, search_type, heuristic):
@@ -14,7 +13,7 @@ class enemy(Agent):
     
     def step(self) -> None:
             
-            if self.search_type != "MinMax":
+            if self.search_type != "MinMax1" and not self.search_type == "MinMax2":
                 step = RandomMove(self.model.grid, self.pos, self.model.goal, self.priority, "")
                 step = step.find_path()
                 self.model.grid.move_agent(self, step)

@@ -52,7 +52,7 @@ def create_simulation_params(width, height, map_file_name):
         "algorithm": Choice(
             name='Método de búsqueda',
             description="Seleccione el método de búsqueda para llegar a la meta",
-            choices=["BFS", "DFS", "UC", "A*", "Hill Climbing", "Beam Search", "MinMax"],
+            choices=["BFS", "DFS", "UC", "A*", "Hill Climbing", "Beam Search", "MinMax1", "MinMax2"],
             value=DEFAULT_ALGORITHM
         ),
         "priority": Choice(

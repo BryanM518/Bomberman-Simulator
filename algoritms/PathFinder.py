@@ -29,6 +29,8 @@ class PathFinder(ABC):
         return all(not isinstance(a, metal) and (not isinstance(a, rock)) for a in agents_in_cell)
     
     def is_valid_grass_cell(self, position):
+        if position == self.goal:
+            return True
         agents_in_cell = self.grid.get_cell_list_contents([position])
         
         if len(agents_in_cell) == 1:

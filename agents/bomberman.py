@@ -12,7 +12,6 @@ from algoritms.Astar import AStar
 from algoritms.HillClimbing import HillClimbing
 from algoritms.BeamSearch import BeamSearch
 from algoritms.Retreat import Retreat
-from algoritms.MinMaxEnemy import MinMaxEnemy
 
 class bomberman(Agent):
     def __init__(self, unique_id, model, search_type, priority, heuristic):
@@ -42,7 +41,7 @@ class bomberman(Agent):
                     self.model.grid.remove_agent(agent)
                     self.model.schedule.remove(agent)
 
-            if self.pos != self.model.goal and (not self.search_type == "MinMax"):
+            if self.pos != self.model.goal and (not self.search_type == "MinMax1" and not self.search_type == "MinMax2"):
                 self.move_towards_goal()
             # else:
             #     enemy_positions_list, _ = self.model.get_enemy_positions()
